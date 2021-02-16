@@ -18,18 +18,21 @@ class MainVC: UIViewController {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var titlelbl: UILabel!
     @IBOutlet weak var pointbtn: UIButton!
+    @IBOutlet weak var pointlbl: UILabel!
     
     
     let currentpoint: Double = 32
+    let minuspoint: Double = 13
     let maxpoint: Double = 50
     let delegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // appdelegate 설정
-        // delegate에 titletext값 전달
-        delegate?.titletext = titlelbl.text
+        //테이블 뷰의 선택을 막음
+        tableView.allowsSelection = false
         
+        // 점수라벨의 텍스트를 변경
+        pointlbl.text = "\(Int(currentpoint))점"
         //원형이미지 출력
         circleimage()
         // 처음 원형차트의 퍼센트를 0으로 초기화
@@ -46,7 +49,7 @@ class MainVC: UIViewController {
     @IBAction func pointbtn(_ sender: Any) {
         if titlelbl.text == "상점" {
             titlelbl.text = "벌점"
-            delegate?.titletext = titlelbl.text
+            pointlbl.text = "\(Int(minuspoint))점"
             pointbtn.setTitle("상점", for: .normal)
             circlechart.set(colors: redcolor)
             circlechart.animate(fromAngle: 0, toAngle: newAngle(currentpoint: currentpoint, maxpoint: maxpoint), duration: 0.7, completion: nil)
@@ -54,7 +57,7 @@ class MainVC: UIViewController {
         }
         else {
             titlelbl.text = "상점"
-            delegate?.titletext = titlelbl.text
+            pointlbl.text = "\(Int(currentpoint))점"
             pointbtn.setTitle("벌점", for: .normal)
             circlechart.set(colors: bluecolor)
             circlechart.animate(fromAngle: 0, toAngle: newAngle(currentpoint: currentpoint, maxpoint: maxpoint), duration: 0.7, completion: nil)
@@ -63,7 +66,12 @@ class MainVC: UIViewController {
     }
     
     func newAngle(currentpoint: Double, maxpoint: Double) -> Double {
-        return Double(360 * (currentpoint / maxpoint))
+        if titlelbl.text == "상점" {
+            return Double(360 * (currentpoint / maxpoint))
+        }
+        else {
+            return Double(360 * (minuspoint / maxpoint))
+        }
     }
     
     func circleimage() {
@@ -73,6 +81,7 @@ class MainVC: UIViewController {
         image.layer.borderColor = UIColor.clear.cgColor  //원형 이미지의 테두리 제거
     }
 
+    
     /*
     // MARK: - Navigation
 
@@ -86,7 +95,6 @@ class MainVC: UIViewController {
 }
 
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
