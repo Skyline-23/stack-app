@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class NoticeVC: UIViewController {
+class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     
     let delegate = UIApplication.shared.delegate as! AppDelegate
     
@@ -16,12 +16,21 @@ class NoticeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        noticetable.isHidden = true
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.noticetable.layer.cornerRadius = 10
         // Do any additional setup after loading the view
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let url = "http://222.104.146.219:80/v1/board"
+        let url = "http://10.80.162.86:3000/v1/board"
+        
+        if delegate.board != nil {
+            noticetable.isHidden = false
+        }
+        else {
+            noticetable.isHidden = true
+        }
         
         let alamo = AF.request(url, method: .get, encoding: JSONEncoding.default)
         let configuration = URLSessionConfiguration.default
@@ -38,6 +47,7 @@ class NoticeVC: UIViewController {
                     }
                     self.delegate.board = board
                     self.noticetable.reloadData()
+                    self.noticetable.isHidden = false
                 }
             case .failure(_):
                 let alart = UIAlertController(title: nil, message: "네트워크를 다시 확인해주세요", preferredStyle: .alert)
