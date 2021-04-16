@@ -17,7 +17,6 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         noticetable.isHidden = true
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.noticetable.layer.cornerRadius = 10
         // Do any additional setup after loading the view
     }
@@ -78,7 +77,7 @@ extension NoticeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NoticeCell
         let data = (delegate.board?[indexPath.row])! as! NSDictionary
-        print(data)
+//        print(data)
         cell.Contentlbl.text = data["content"] as? String
         cell.Titlelbl.text = data["title"] as? String
         cell.Userlbl.text = data["userId"] as? String
@@ -90,4 +89,7 @@ extension NoticeVC: UITableViewDelegate, UITableViewDataSource {
         return 57
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate.boardnum = indexPath.row
+    }
 }

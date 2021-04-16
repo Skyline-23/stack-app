@@ -57,22 +57,15 @@ class loginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
-    private func submit(){
-//        if let menuScreen = self.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
-//            menuScreen.modalPresentationStyle = .fullScreen
-//            menuScreen.modalTransitionStyle = .crossDissolve
-//            self.dismiss(animated: false) {
-//                self.present(menuScreen, animated: true, completion: nil)
-//            }
-//        }
+    private func submit() {
         
         let url = "http://10.80.162.86:3000/v1/auth/login"
-        let id = Idtextfield.text
-        let pw = PWtextfield.text
+//        let id = Idtextfield.text
+//        let pw = PWtextfield.text
         
         let param: Parameters = [
-            "id": id!,
-            "pw": pw!
+            "id": "student",
+            "pw": "student1234"
         ]
         
         
@@ -101,7 +94,7 @@ class loginVC: UIViewController, UITextFieldDelegate {
                     if code == 200 {
                         let data = NSDic["data"] as? NSDictionary
                         self.delegate.token = data?["token"] as? NSString
-                        if let menuScreen = self.storyboard?.instantiateViewController(withIdentifier: "Navigation2") {
+                        if let menuScreen = self.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
                             menuScreen.modalPresentationStyle = .fullScreen
                             menuScreen.modalTransitionStyle = .crossDissolve
                             self.dismiss(animated: false) {

@@ -10,12 +10,23 @@ import UIKit
 class notice2VC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var viewlayout: UIView!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var userLabel: UILabel!
+    @IBOutlet weak var contentLabel: UITextView!
+    @IBOutlet weak var pointLabel: UILabel!
+    
+    let delegate = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         viewlayout.layer.cornerRadius = 10
-        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
+        let data = delegate.board![delegate.boardnum!] as! NSDictionary
+        
+        titleLabel.text = data["title"] as? String
+        contentLabel.text = data["content"] as? String
+        userLabel.text = data["userId"] as? String
         // Do any additional setup after loading the view.
     }
     
