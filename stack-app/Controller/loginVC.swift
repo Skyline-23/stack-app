@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 import Alamofire
+import SwiftyJSON
 
 class loginVC: UIViewController, UITextFieldDelegate {
     
@@ -88,9 +90,9 @@ class loginVC: UIViewController, UITextFieldDelegate {
                     
                     let code = NSDic["code"] as? NSNumber
                     let message = NSDic["message"] as? NSString
-                    if let data = NSDic["data"] as? NSDictionary {
-                        self.delegate.token = data["token"] as? NSString
-                    }
+//                    if let data = NSDic["data"] as? NSDictionary {
+//                        self.delegate.token = data["token"] as? NSString
+//                    }
                     if code == 200 {
                         let data = NSDic["data"] as? NSDictionary
                         self.delegate.token = data?["token"] as? NSString

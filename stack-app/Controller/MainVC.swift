@@ -6,6 +6,7 @@
 //
 
 import UIKit
+
 import Alamofire
 import KDCircularProgress
 import SwiftyJSON
@@ -14,8 +15,6 @@ let bluecolor = #colorLiteral(red: 0.2705882353, green: 0.4431372549, blue: 0.90
 let redcolor = #colorLiteral(red: 0.9529411765, green: 0.3254901961, blue: 0.3254901961, alpha: 1)
 
 class MainVC: UIViewController {
-
-    var score: [JSON] = []
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var circleChart: KDCircularProgress!
@@ -25,10 +24,10 @@ class MainVC: UIViewController {
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
-    
+    // score데이터
+    var score: [JSON] = []
     // 상점 벌점
     var point: Double = 0
-    
     // 차트 최고점
     let maxpoint: Double = 50
     // 델리게이트 호출
@@ -40,18 +39,16 @@ class MainVC: UIViewController {
         // 뷰가 생성 될 때 상점을 로드
         networking(type: 0) {
             self.drawChart(self.point)
+            self.tableView.reloadData()
         }
-
         //테이블 뷰의 선택을 막음
         tableView.allowsSelection = false
-        
         //원형이미지 출력
         circleimage()
         // 처음 원형차트의 퍼센트를 0으로 초기화
         circleChart.angle = 0
         // tableview의 모서리 지정
         self.tableView.layer.cornerRadius = 10
-        
         // Do any additional setup after loading the view.
     }
     
@@ -64,6 +61,7 @@ class MainVC: UIViewController {
             networking(type: 1) {
                 self.drawChart(self.point)
                 self.tableView.reloadData()
+                self.pointLabel.text = "\(Int(self.point))점"
             }
         }
         else {
@@ -73,6 +71,7 @@ class MainVC: UIViewController {
             networking(type: 0) {
                 self.drawChart(self.point)
                 self.tableView.reloadData()
+                self.pointLabel.text = "\(Int(self.point))점"
             }
         }
     }
@@ -92,17 +91,14 @@ class MainVC: UIViewController {
             // when success
             case .success(let value):
                 let json = JSON(value)
-                
                 // 서버 코드 저장
                 let code = json["code"].intValue
-                
                 // 코드 판별
                 if code == 200 {
                     self.userData(json: json)
                     self.scoreData(json: json)
                     complition()
                 }
-                
                 // 서버 메세지 알림
                 else {
                     let message = json["message"].stringValue
@@ -128,14 +124,10 @@ class MainVC: UIViewController {
         // 포인트 초기화
         point = 0
         // score 배열이 없을 경우 실행
-        if (score.isEmpty == true) {
-            pointLabel.text = "0점"
-        }
-        else {
+        if (score.isEmpty != true) {
             for a in 0...(score.count - 1) {
                 point += score[a]["score"].doubleValue
             }
-            pointLabel.text = "\(Int(point))점"
         }
     }
     
@@ -165,15 +157,15 @@ class MainVC: UIViewController {
     }
     
     /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+     // MARK: - Navigation
+     
+     // In a storyboard-based application, you will often want to do a little preparation before navigation
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+     // Get the new view controller using segue.destination.
+     // Pass the selected object to the new view controller.
+     }
+     */
+    
 }
 
 // 테이블뷰 처리
@@ -185,6 +177,9 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! customcell
+        let data = score[(score.count - 1) - indexPath.row]
+        cell.reasontext.text = data["reason"].stringValue + " \(data["score"].intValue)점"
+        cell.datetext.text = String(data["created_at"].stringValue.split(separator: "T")[0])
         cell.reasontext.textColor = bluecolor
         if self.title == "벌점" {
             cell.reasontext.textColor = redcolor
