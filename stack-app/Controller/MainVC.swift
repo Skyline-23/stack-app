@@ -38,6 +38,7 @@ class MainVC: UIViewController {
         title = "상점"
         // 뷰가 생성 될 때 상점을 로드
         networking(type: 0) {
+            self.pointLabel.text = "\(Int(self.point))점"
             self.drawChart(self.point)
             self.tableView.reloadData()
         }
@@ -172,7 +173,7 @@ class MainVC: UIViewController {
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return score.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

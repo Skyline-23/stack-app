@@ -414,8 +414,8 @@
                                     </tableViewCell>
                                 </prototypes>
                                 <connections>
-                                    <outlet property="dataSource" destination="cIV-GI-lAu" id="IMR-ME-Yfc"/>
-                                    <outlet property="delegate" destination="cIV-GI-lAu" id="kBC-Ra-AgS"/>
+                                    <outlet property="dataSource" destination="cIV-GI-lAu" id="zey-1B-3ce"/>
+                                    <outlet property="delegate" destination="cIV-GI-lAu" id="61R-Gj-tEj"/>
                                 </connections>
                             </tableView>
                         </subviews>

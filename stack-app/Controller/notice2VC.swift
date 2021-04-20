@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SwiftyJSON
 
 class notice2VC: UIViewController, UIGestureRecognizerDelegate {
 
@@ -22,11 +23,11 @@ class notice2VC: UIViewController, UIGestureRecognizerDelegate {
         
         viewlayout.layer.cornerRadius = 10
         
-        let data = delegate.board![delegate.boardnum!] as! NSDictionary
+        let data = delegate.board?[delegate.boardnum!]
         
-        titleLabel.text = data["title"] as? String
-        contentLabel.text = data["content"] as? String
-        userLabel.text = data["userId"] as? String
+        titleLabel.text = data?["title"].stringValue
+        contentLabel.text = data?["content"].stringValue
+        userLabel.text = data?["userId"].stringValue
         // Do any additional setup after loading the view.
     }
     

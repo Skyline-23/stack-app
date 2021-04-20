@@ -6,7 +6,9 @@
 //
 
 import UIKit
+
 import Alamofire
+import SwiftyJSON
 
 class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     
@@ -38,16 +40,10 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
         alamo.responseJSON() { response in
             switch response.result {
             case .success(let value):
-                if let NSDic = value as? NSDictionary {
-                    let data = NSDic["data"] as? NSDictionary
-                    guard let board = data?["board"] as? NSArray else {
-                        print("nothing")
-                        return
-                    }
-                    self.delegate.board = board
-                    self.noticetable.reloadData()
-                    self.noticetable.isHidden = false
-                }
+                let json = JSON(value)
+                self.delegate.board = json["data"]["board"].array
+                self.noticetable.reloadData()
+                self.noticetable.isHidden = false
             case .failure(_):
                 let alart = UIAlertController(title: nil, message: "네트워크를 다시 확인해주세요", preferredStyle: .alert)
                 alart.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
@@ -76,11 +72,11 @@ extension NoticeVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NoticeCell
-        let data = (delegate.board?[indexPath.row])! as! NSDictionary
+        let data = delegate.board?[indexPath.row]
 //        print(data)
-        cell.Contentlbl.text = data["content"] as? String
-        cell.Titlelbl.text = data["title"] as? String
-        cell.Userlbl.text = data["userId"] as? String
+        cell.Contentlbl.text = data?["content"].stringValue
+        cell.Titlelbl.text = data?["title"].stringValue
+        cell.Userlbl.text = data?["userId"].stringValue
         cell.selectionStyle = .none
         return cell
     }

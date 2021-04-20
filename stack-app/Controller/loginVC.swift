@@ -82,38 +82,31 @@ class loginVC: UIViewController, UITextFieldDelegate {
 //            return Session(configuration: configuration)
 //        }()
 //        let configuration = URLSessionConfiguration.af.default
+        
         let alamo = AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default)
         alamo.responseJSON() { response in
             switch response.result {
             case .success(let value):
-                if let NSDic = value as? NSDictionary {
-                    
-                    let code = NSDic["code"] as? NSNumber
-                    let message = NSDic["message"] as? NSString
-//                    if let data = NSDic["data"] as? NSDictionary {
-//                        self.delegate.token = data["token"] as? NSString
-//                    }
-                    if code == 200 {
-                        let data = NSDic["data"] as? NSDictionary
-                        self.delegate.token = data?["token"] as? NSString
-                        if let menuScreen = self.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
-                            menuScreen.modalPresentationStyle = .fullScreen
-                            menuScreen.modalTransitionStyle = .crossDissolve
-                            self.dismiss(animated: false) {
-                                self.present(menuScreen, animated: true, completion: nil)
-                            }
+                let json = JSON(value)
+                let code = json["code"].intValue
+                let message = json["message"].stringValue
+                if code == 200 {
+                    self.delegate.token = json["data"]["token"].stringValue
+                    if let menuScreen = self.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
+                        menuScreen.modalPresentationStyle = .fullScreen
+                        menuScreen.modalTransitionStyle = .crossDissolve
+                        self.dismiss(animated: false) {
+                            self.present(menuScreen, animated: true, completion: nil)
                         }
                     }
-                    else
-                    {
-                        let alart = UIAlertController(title: nil, message: "\(message!)", preferredStyle: .alert)
-                        self.view.tintColor = UIColor.cyan
-                        alart.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                        self.present(alart, animated: true)
-                        return
-                    }
                 }
-            
+                else {
+                    let alart = UIAlertController(title: nil, message: "\(message)", preferredStyle: .alert)
+                    self.view.tintColor = UIColor.cyan
+                    alart.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+                    self.present(alart, animated: true)
+                    return
+                }
             case .failure(_):
                 let alart = UIAlertController(title: nil, message: "네트워크를 다시 확인해주세요", preferredStyle: .alert)
                 alart.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
