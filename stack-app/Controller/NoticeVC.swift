@@ -24,7 +24,7 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let url = "http://10.80.162.86:3000/v1/board"
+        let url = "\(Ip().ip)/v1/board"
         
         if delegate.board != nil {
             noticetable.isHidden = false
@@ -41,6 +41,7 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
+                print(json)
                 self.delegate.board = json["data"]["board"].array
                 self.noticetable.reloadData()
                 self.noticetable.isHidden = false

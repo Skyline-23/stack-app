@@ -14,6 +14,13 @@ class loginVC: UIViewController, UITextFieldDelegate {
     
     let delegate = UIApplication.shared.delegate as! AppDelegate
     
+    var serverMessage:String = ""
+    lazy var alert: UIAlertController = {
+        let alartview = UIAlertController(title: nil, message: serverMessage, preferredStyle: .alert)
+        alartview.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+        return alartview
+    }()
+    
     @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var Idtextfield: UITextField!
     @IBOutlet weak var PWtextfield: UITextField!
@@ -61,7 +68,7 @@ class loginVC: UIViewController, UITextFieldDelegate {
     
     private func submit() {
         
-        let url = "http://10.80.162.86:3000/v1/auth/login"
+        let url = "\(Ip().ip)/v1/auth/login"
 //        let id = Idtextfield.text
 //        let pw = PWtextfield.text
         
@@ -72,24 +79,23 @@ class loginVC: UIViewController, UITextFieldDelegate {
         
         
         // timeout시간 설정
-//        let sessionManager: Session = {
-//          //2
-//            let configuration = URLSessionConfiguration.af.default
-//          //3
-//            configuration.timeoutIntervalForRequest = 30
-//            configuration.waitsForConnectivity = true
-//          //4
-//            return Session(configuration: configuration)
-//        }()
-//        let configuration = URLSessionConfiguration.af.default
+        let sessionManager: Session = {
+          //2
+            let configuration = URLSessionConfiguration.af.default
+          //3
+            configuration.timeoutIntervalForRequest = 30
+            configuration.waitsForConnectivity = true
+          //4
+            return Session(configuration: configuration)
+        }()
         
-        let alamo = AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default)
+        let alamo = sessionManager.request(url, method: .post, parameters: param, encoding: JSONEncoding.default)
         alamo.responseJSON() { response in
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
                 let code = json["code"].intValue
-                let message = json["message"].stringValue
+                self.serverMessage = json["message"].stringValue
                 if code == 200 {
                     self.delegate.token = json["data"]["token"].stringValue
                     if let menuScreen = self.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
@@ -101,16 +107,14 @@ class loginVC: UIViewController, UITextFieldDelegate {
                     }
                 }
                 else {
-                    let alart = UIAlertController(title: nil, message: "\(message)", preferredStyle: .alert)
                     self.view.tintColor = UIColor.cyan
-                    alart.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                    self.present(alart, animated: true)
+                    self.present(self.alert, animated: true)
                     return
                 }
             case .failure(_):
-                let alart = UIAlertController(title: nil, message: "네트워크를 다시 확인해주세요", preferredStyle: .alert)
-                alart.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                self.present(alart, animated: true)
+                self.serverMessage = "네트워크를 다시 확인해주세요"
+                self.view.tintColor = UIColor.cyan
+                self.present(self.alert, animated: true)
                 return
             }
         }

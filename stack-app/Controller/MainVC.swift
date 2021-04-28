@@ -81,7 +81,7 @@ class MainVC: UIViewController {
     private func networking(type: Int, complition: @escaping () -> Void) {
         
         // 네트워크 url, 헤더, queryparameter 설정
-        let url = "http://10.80.162.86:3000/v1/point"
+        let url = "\(Ip().ip)/v1/point"
         let headers:HTTPHeaders = ["authorization" : "\((delegate?.token)!)"]
         let parameters: Parameters = ["type": type]
         
