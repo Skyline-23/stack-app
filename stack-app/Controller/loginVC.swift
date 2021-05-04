@@ -67,6 +67,7 @@ class loginVC: UIViewController, UITextFieldDelegate {
     }
     
     private func submit() {
+        self.view.isUserInteractionEnabled = false
         
         let url = "\(Ip().ip)/v1/auth/login"
 //        let id = Idtextfield.text
@@ -78,21 +79,22 @@ class loginVC: UIViewController, UITextFieldDelegate {
         ]
         
         
-        // timeout시간 설정
-        let sessionManager: Session = {
-          //2
-            let configuration = URLSessionConfiguration.af.default
-          //3
-            configuration.timeoutIntervalForRequest = 30
-            configuration.waitsForConnectivity = true
-          //4
-            return Session(configuration: configuration)
-        }()
+//        // timeout시간 설정
+//        let sessionManager: Session = {
+//          //2
+//            let configuration = URLSessionConfiguration.af.default
+//          //3
+//            configuration.timeoutIntervalForRequest = 30
+//            configuration.waitsForConnectivity = true
+//          //4
+//            return Session(configuration: configuration)
+//        }()
         
-        let alamo = sessionManager.request(url, method: .post, parameters: param, encoding: JSONEncoding.default)
+        let alamo = AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default)
         alamo.responseJSON() { response in
             switch response.result {
             case .success(let value):
+                self.view.isUserInteractionEnabled = true
                 let json = JSON(value)
                 let code = json["code"].intValue
                 self.serverMessage = json["message"].stringValue
@@ -112,6 +114,7 @@ class loginVC: UIViewController, UITextFieldDelegate {
                     return
                 }
             case .failure(_):
+                self.view.isUserInteractionEnabled = true
                 self.serverMessage = "네트워크를 다시 확인해주세요"
                 self.view.tintColor = UIColor.cyan
                 self.present(self.alert, animated: true)
