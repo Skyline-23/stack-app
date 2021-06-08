@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class customcell: UITableViewCell {
     @IBOutlet weak var datetext: UILabel!
     @IBOutlet weak var reasontext: UILabel!

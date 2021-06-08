@@ -67,16 +67,15 @@ class loginVC: UIViewController, UITextFieldDelegate {
     }
     
     private func submit() {
+        // 터치 입력 비활성화
         self.view.isUserInteractionEnabled = false
         
-        let url = "\(Ip().ip)/v1/auth/login"
-//        let id = Idtextfield.text
-//        let pw = PWtextfield.text
-        
         let param: Parameters = [
-            "id": "student",
-            "pw": "student1234"
+            "id": "\(Idtextfield.text ?? "")",
+            "pw": "\(PWtextfield.text ?? "")"
         ]
+        
+        let url = "http://10.80.162.86:3000/v1/auth/login"
         
         
 //        // timeout시간 설정
@@ -94,6 +93,7 @@ class loginVC: UIViewController, UITextFieldDelegate {
         alamo.responseJSON() { response in
             switch response.result {
             case .success(let value):
+                // 터치 입력 활성화
                 self.view.isUserInteractionEnabled = true
                 let json = JSON(value)
                 let code = json["code"].intValue

@@ -24,7 +24,7 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let url = "\(Ip().ip)/v1/board"
+        let url = "http://10.80.162.86:3000/v1/board"
         
         if delegate.board != nil {
             noticetable.isHidden = false
