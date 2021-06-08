@@ -20,6 +20,11 @@
 		626829CB26390A8B00B27660 /* Ip.swift in Sources */ = {isa = PBXBuildFile; fileRef = 626829CA26390A8B00B27660 /* Ip.swift */; };
 		6271472125D0E83F00EF9648 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6271472025D0E83F00EF9648 /* NoticeVC.swift */; };
 		6271472625D0F28600EF9648 /* notice2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6271472525D0F28600EF9648 /* notice2VC.swift */; };
+		628B25F6266F7A5D0051527F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25F5266F7A5D0051527F /* Register.swift */; };
+		628B25F8266F7B6A0051527F /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25F7266F7B6A0051527F /* Login.swift */; };
+		628B25FA266F846A0051527F /* UserRanking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25F9266F846A0051527F /* UserRanking.swift */; };
+		628B25FC266F85930051527F /* Point.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25FB266F85930051527F /* Point.swift */; };
+		628B25FE266F86710051527F /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25FD266F86710051527F /* Board.swift */; };
 		62924E7925DA871200496B47 /* NoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62924E7825DA871200496B47 /* NoticeCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -40,6 +45,11 @@
 		626829CA26390A8B00B27660 /* Ip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ip.swift; sourceTree = "<group>"; };
 		6271472025D0E83F00EF9648 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		6271472525D0F28600EF9648 /* notice2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notice2VC.swift; sourceTree = "<group>"; };
+		628B25F5266F7A5D0051527F /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
+		628B25F7266F7B6A0051527F /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
+		628B25F9266F846A0051527F /* UserRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRanking.swift; sourceTree = "<group>"; };
+		628B25FB266F85930051527F /* Point.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Point.swift; sourceTree = "<group>"; };
+		628B25FD266F86710051527F /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		62924E7825DA871200496B47 /* NoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCell.swift; sourceTree = "<group>"; };
 		8E29ADD10A209905EF858F5C /* Pods-stack-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stack-app.release.xcconfig"; path = "Target Support Files/Pods-stack-app/Pods-stack-app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -94,6 +104,7 @@
 		620E5EB925CB922200FF5714 /* stack-app */ = {
 			isa = PBXGroup;
 			children = (
+				628B25F4266F63B80051527F /* Model */,
 				6271472325D0EA8F00EF9648 /* Controller */,
 				620E5EBA25CB922200FF5714 /* AppDelegate.swift */,
 				620E5EBC25CB922200FF5714 /* SceneDelegate.swift */,
@@ -118,6 +129,18 @@
 				6271472525D0F28600EF9648 /* notice2VC.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		628B25F4266F63B80051527F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				628B25F5266F7A5D0051527F /* Register.swift */,
+				628B25F7266F7B6A0051527F /* Login.swift */,
+				628B25F9266F846A0051527F /* UserRanking.swift */,
+				628B25FB266F85930051527F /* Point.swift */,
+				628B25FD266F86710051527F /* Board.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,10 +258,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				626829CB26390A8B00B27660 /* Ip.swift in Sources */,
+				628B25F6266F7A5D0051527F /* Register.swift in Sources */,
 				620E5EC525CB922200FF5714 /* stack_app.xcdatamodeld in Sources */,
+				628B25F8266F7B6A0051527F /* Login.swift in Sources */,
+				628B25FC266F85930051527F /* Point.swift in Sources */,
 				621E751725CFA02000494694 /* MainVC.swift in Sources */,
+				628B25FA266F846A0051527F /* UserRanking.swift in Sources */,
 				620699F525D0061600E33131 /* customcell.swift in Sources */,
 				620E5EBF25CB922200FF5714 /* loginVC.swift in Sources */,
+				628B25FE266F86710051527F /* Board.swift in Sources */,
 				620E5EBB25CB922200FF5714 /* AppDelegate.swift in Sources */,
 				620E5EBD25CB922200FF5714 /* SceneDelegate.swift in Sources */,
 				62924E7925DA871200496B47 /* NoticeCell.swift in Sources */,
