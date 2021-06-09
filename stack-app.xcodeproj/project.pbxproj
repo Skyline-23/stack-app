@@ -17,6 +17,7 @@
 		620E5EC725CB922300FF5714 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 620E5EC625CB922300FF5714 /* Assets.xcassets */; };
 		620E5ECA25CB922300FF5714 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 620E5EC825CB922300FF5714 /* LaunchScreen.storyboard */; };
 		621E751725CFA02000494694 /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 621E751625CFA02000494694 /* MainVC.swift */; };
+		6257BDDC26705D8F005D3022 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6257BDDB26705D8F005D3022 /* Token.swift */; };
 		6271472125D0E83F00EF9648 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6271472025D0E83F00EF9648 /* NoticeVC.swift */; };
 		6271472625D0F28600EF9648 /* notice2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6271472525D0F28600EF9648 /* notice2VC.swift */; };
 		628B25F6266F7A5D0051527F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25F5266F7A5D0051527F /* Register.swift */; };
@@ -42,6 +43,7 @@
 		620E5EC925CB922300FF5714 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		620E5ECB25CB922300FF5714 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		621E751625CFA02000494694 /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		6257BDDB26705D8F005D3022 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		6271472025D0E83F00EF9648 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		6271472525D0F28600EF9648 /* notice2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notice2VC.swift; sourceTree = "<group>"; };
 		628B25F5266F7A5D0051527F /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				628B25F9266F846A0051527F /* UserRanking.swift */,
 				628B25FB266F85930051527F /* Point.swift */,
 				628B25FD266F86710051527F /* Board.swift */,
+				6257BDDB26705D8F005D3022 /* Token.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				628B25FC266F85930051527F /* Point.swift in Sources */,
 				621E751725CFA02000494694 /* MainVC.swift in Sources */,
 				628B25FA266F846A0051527F /* UserRanking.swift in Sources */,
+				6257BDDC26705D8F005D3022 /* Token.swift in Sources */,
 				620699F525D0061600E33131 /* customcell.swift in Sources */,
 				620E5EBF25CB922200FF5714 /* loginVC.swift in Sources */,
 				628B25FE266F86710051527F /* Board.swift in Sources */,

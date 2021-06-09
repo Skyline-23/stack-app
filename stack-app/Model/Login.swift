@@ -10,7 +10,7 @@ import Foundation
 struct LoginResponse: Decodable {
     var code: Int
     var message: String
-    var data: LoginData
+    var data: LoginData?
 }
 
 struct LoginData: Decodable {

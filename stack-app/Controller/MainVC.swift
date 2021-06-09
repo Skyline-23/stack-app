@@ -82,7 +82,7 @@ class MainVC: UIViewController {
         
         // 네트워크 url, 헤더, queryparameter 설정
         let url = "http://10.80.162.86:3000/v1/point"
-        let headers:HTTPHeaders = ["authorization" : "\((delegate?.token)!)"]
+        let headers:HTTPHeaders = ["authorization" : "\(Token.shared.token!)"]
         let parameters: Parameters = ["type": type]
         
         // url을 넣고 get으로 요청

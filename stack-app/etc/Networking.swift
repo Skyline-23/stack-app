@@ -9,15 +9,16 @@ import UIKit
 import Alamofire
 
 struct Networking {
-    static func network(uri: String, param: Parameters?, header: HTTPHeaders? ,completion: @escaping (Data) -> Void) throws {
-            let baseURL = "http://10.80.162.86:3000/"
+    static func post(uri: String, param: Parameters?, header: HTTPHeaders? ,completion: @escaping (Data) -> Void) throws {
+            let baseURL = "http://10.80.162.86:3000/v1"
             let url:String = baseURL + uri
+        print(url)
             var APIError: Error?
             
-            AF.request(url, method: .get, parameters: param, headers: header).responseJSON {
+            AF.request(url, method: .post, parameters: param, headers: header).responseData {
                 switch $0.result {
                 case .success(let value):
-                    completion(value as! Data)
+                    completion(value)
                 case .failure(let error):
                     APIError = error
                 }

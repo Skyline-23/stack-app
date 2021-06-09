@@ -8,7 +8,6 @@
 import UIKit
 
 import Alamofire
-import SwiftyJSON
 
 class loginVC: UIViewController, UITextFieldDelegate {
     
@@ -74,32 +73,14 @@ class loginVC: UIViewController, UITextFieldDelegate {
             "id": "\(Idtextfield.text ?? "")",
             "pw": "\(PWtextfield.text ?? "")"
         ]
-        
-        let url = "http://10.80.162.86:3000/v1/auth/login"
-        
-        
-//        // timeout시간 설정
-//        let sessionManager: Session = {
-//          //2
-//            let configuration = URLSessionConfiguration.af.default
-//          //3
-//            configuration.timeoutIntervalForRequest = 30
-//            configuration.waitsForConnectivity = true
-//          //4
-//            return Session(configuration: configuration)
-//        }()
-        
-        let alamo = AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default)
-        alamo.responseJSON() { response in
-            switch response.result {
-            case .success(let value):
-                // 터치 입력 활성화
+        do {
+            try Networking.post(uri: "/auth/login", param: param, header: nil) {
                 self.view.isUserInteractionEnabled = true
-                let json = JSON(value)
-                let code = json["code"].intValue
-                self.serverMessage = json["message"].stringValue
-                if code == 200 {
-                    self.delegate.token = json["data"]["token"].stringValue
+                let decoder = JSONDecoder()
+                let jsonData = try? decoder.decode(LoginResponse.self, from: $0)
+                switch jsonData?.code {
+                case 200:
+                    Token.shared.token = jsonData?.data?.token
                     if let menuScreen = self.storyboard?.instantiateViewController(withIdentifier: "Navigation") {
                         menuScreen.modalPresentationStyle = .fullScreen
                         menuScreen.modalTransitionStyle = .crossDissolve
@@ -107,19 +88,15 @@ class loginVC: UIViewController, UITextFieldDelegate {
                             self.present(menuScreen, animated: true, completion: nil)
                         }
                     }
+                case 404:
+                    print(jsonData?.message as Any)
+                default:
+                    break
                 }
-                else {
-                    self.view.tintColor = UIColor.cyan
-                    self.present(self.alert, animated: true)
-                    return
-                }
-            case .failure(_):
-                self.view.isUserInteractionEnabled = true
-                self.serverMessage = "네트워크를 다시 확인해주세요"
-                self.view.tintColor = UIColor.cyan
-                self.present(self.alert, animated: true)
-                return
             }
+        } catch let error {
+            self.view.isUserInteractionEnabled = true
+            print(error)
         }
     }
     
