@@ -41,7 +41,6 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
             switch response.result {
             case .success(let value):
                 let json = JSON(value)
-                print(json)
                 self.delegate.board = json["data"]["board"].array
                 self.noticetable.reloadData()
                 self.noticetable.isHidden = false
@@ -74,7 +73,6 @@ extension NoticeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NoticeCell
         let data = delegate.board?[indexPath.row]
-//        print(data)
         cell.Contentlbl.text = data?["content"].stringValue
         cell.Titlelbl.text = data?["title"].stringValue
         cell.Userlbl.text = data?["userId"].stringValue

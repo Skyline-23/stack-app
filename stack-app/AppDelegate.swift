@@ -12,7 +12,6 @@ import CoreData
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
-    var token: String?
     var board: [JSON]?
     var boardnum: Int?
     
