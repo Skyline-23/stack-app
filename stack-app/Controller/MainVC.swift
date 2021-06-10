@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import KDCircularProgress
 import SwiftyJSON
+import Then
 
 let bluecolor = #colorLiteral(red: 0.2705882353, green: 0.4431372549, blue: 0.9019607843, alpha: 1)
 let redcolor = #colorLiteral(red: 0.9529411765, green: 0.3254901961, blue: 0.3254901961, alpha: 1)
@@ -177,11 +178,12 @@ extension MainVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! customcell
         let data = score[(score.count - 1) - indexPath.row]
-        cell.reasontext.text = data["reason"].stringValue + " \(data["score"].intValue)점"
-        cell.datetext.text = String(data["created_at"].stringValue.split(separator: "T")[0])
-        cell.reasontext.textColor = bluecolor
+        let cell = (tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! customcell).then {
+            $0.reasontext.text = data["reason"].stringValue + " \(data["score"].intValue)점"
+            $0.datetext.text = String(data["created_at"].stringValue.split(separator: "T")[0])
+            $0.reasontext.textColor = bluecolor
+        }
         if self.title == "벌점" {
             cell.reasontext.textColor = redcolor
         }

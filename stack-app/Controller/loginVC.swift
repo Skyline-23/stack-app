@@ -8,6 +8,7 @@
 import UIKit
 
 import Alamofire
+import Then
 
 class loginVC: UIViewController, UITextFieldDelegate {
     
@@ -15,18 +16,14 @@ class loginVC: UIViewController, UITextFieldDelegate {
     
     var serverMessage: String = ""
     
-    lazy var alert: UIAlertController = {
-        let alartview = UIAlertController(title: nil, message: serverMessage, preferredStyle: .alert)
-        alartview.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-        return alartview
-    }()
+    lazy var alert = UIAlertController(title: nil, message: serverMessage, preferredStyle: .alert).then {
+        $0.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+    }
     
-    lazy var reRequset: UIAlertController = {
-        let alert = UIAlertController(title: nil, message: serverMessage, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "취소", style: .destructive, handler: nil))
-        alert.addAction(UIAlertAction(title: "재시도", style: .default) {_ in self.submit() })
-        return alert
-    }()
+    lazy var reRequset = UIAlertController(title: nil, message: serverMessage, preferredStyle: .alert).then {
+        $0.addAction(UIAlertAction(title: "취소", style: .destructive, handler: nil))
+        $0.addAction(UIAlertAction(title: "재시도", style: .default) {_ in self.submit() })
+    }
     
     @IBOutlet weak var backImageView: UIImageView!
     @IBOutlet weak var Idtextfield: UITextField!
@@ -115,7 +112,6 @@ class loginVC: UIViewController, UITextFieldDelegate {
                     self.serverMessage = "알 수 없는 오류입니다."
                     self.present(self.alert, animated: true, completion: nil)
                 }
-                
             }
             else {
                 // error is not null
