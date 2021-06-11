@@ -87,7 +87,7 @@ class loginVC: UIViewController, UITextFieldDelegate {
             "pw": "\(PWtextfield.text ?? "")"
         ]
         
-        Networking.post(uri: "/auth/login", param: param, header: nil) { data, error in
+        Networking.post(uri: "/auth/login", param: param, header: nil) { error, data in
             // 유저 터치 활성화
             self.view.isUserInteractionEnabled = true
             

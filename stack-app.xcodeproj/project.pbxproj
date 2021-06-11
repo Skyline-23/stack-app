@@ -20,6 +20,7 @@
 		6257BDDC26705D8F005D3022 /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6257BDDB26705D8F005D3022 /* Token.swift */; };
 		6271472125D0E83F00EF9648 /* NoticeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6271472025D0E83F00EF9648 /* NoticeVC.swift */; };
 		6271472625D0F28600EF9648 /* notice2VC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6271472525D0F28600EF9648 /* notice2VC.swift */; };
+		6289A84A26732CB700F8691E /* MockPoint.json in Resources */ = {isa = PBXBuildFile; fileRef = 6289A84926732CB700F8691E /* MockPoint.json */; };
 		628B25F6266F7A5D0051527F /* Register.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25F5266F7A5D0051527F /* Register.swift */; };
 		628B25F8266F7B6A0051527F /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25F7266F7B6A0051527F /* Login.swift */; };
 		628B25FA266F846A0051527F /* UserRanking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25F9266F846A0051527F /* UserRanking.swift */; };
@@ -46,6 +47,7 @@
 		6257BDDB26705D8F005D3022 /* Token.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		6271472025D0E83F00EF9648 /* NoticeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeVC.swift; sourceTree = "<group>"; };
 		6271472525D0F28600EF9648 /* notice2VC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = notice2VC.swift; sourceTree = "<group>"; };
+		6289A84926732CB700F8691E /* MockPoint.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockPoint.json; sourceTree = "<group>"; };
 		628B25F5266F7A5D0051527F /* Register.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Register.swift; sourceTree = "<group>"; };
 		628B25F7266F7B6A0051527F /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		628B25F9266F846A0051527F /* UserRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRanking.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				628B25F4266F63B80051527F /* Model */,
 				6271472325D0EA8F00EF9648 /* Controller */,
+				6289A84726732C5600F8691E /* resources */,
 				628B25FF266F894C0051527F /* etc */,
 				620E5EBA25CB922200FF5714 /* AppDelegate.swift */,
 				620E5EBC25CB922200FF5714 /* SceneDelegate.swift */,
@@ -126,11 +129,27 @@
 				620E5EBE25CB922200FF5714 /* loginVC.swift */,
 				621E751625CFA02000494694 /* MainVC.swift */,
 				620699F425D0061600E33131 /* customcell.swift */,
-				62924E7825DA871200496B47 /* NoticeCell.swift */,
 				6271472025D0E83F00EF9648 /* NoticeVC.swift */,
 				6271472525D0F28600EF9648 /* notice2VC.swift */,
+				62924E7825DA871200496B47 /* NoticeCell.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		6289A84726732C5600F8691E /* resources */ = {
+			isa = PBXGroup;
+			children = (
+				6289A84826732C7800F8691E /* mock-data */,
+			);
+			path = resources;
+			sourceTree = "<group>";
+		};
+		6289A84826732C7800F8691E /* mock-data */ = {
+			isa = PBXGroup;
+			children = (
+				6289A84926732CB700F8691E /* MockPoint.json */,
+			);
+			path = "mock-data";
 			sourceTree = "<group>";
 		};
 		628B25F4266F63B80051527F /* Model */ = {
@@ -138,8 +157,8 @@
 			children = (
 				628B25F5266F7A5D0051527F /* Register.swift */,
 				628B25F7266F7B6A0051527F /* Login.swift */,
-				628B25F9266F846A0051527F /* UserRanking.swift */,
 				628B25FB266F85930051527F /* Point.swift */,
+				628B25F9266F846A0051527F /* UserRanking.swift */,
 				628B25FD266F86710051527F /* Board.swift */,
 				6257BDDB26705D8F005D3022 /* Token.swift */,
 			);
@@ -213,6 +232,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6289A84A26732CB700F8691E /* MockPoint.json in Resources */,
 				620E5ECA25CB922300FF5714 /* LaunchScreen.storyboard in Resources */,
 				620E5EC725CB922300FF5714 /* Assets.xcassets in Resources */,
 				620E5EC225CB922200FF5714 /* Main.storyboard in Resources */,

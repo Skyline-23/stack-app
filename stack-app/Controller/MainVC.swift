@@ -9,8 +9,8 @@ import UIKit
 
 import Alamofire
 import KDCircularProgress
-import SwiftyJSON
 import Then
+import SwiftyJSON
 
 let bluecolor = #colorLiteral(red: 0.2705882353, green: 0.4431372549, blue: 0.9019607843, alpha: 1)
 let redcolor = #colorLiteral(red: 0.9529411765, green: 0.3254901961, blue: 0.3254901961, alpha: 1)
@@ -25,14 +25,15 @@ class MainVC: UIViewController {
     @IBOutlet weak var numberLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
     
-    // score데이터
-    var score: [JSON] = []
+    lazy var alert = UIAlertController(title: "네트워크 오류", message: "네트워크를 다시 확인해주세요!", preferredStyle: .alert).then {
+        $0.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
+    }
+    
+    var data:Point?
     // 상점 벌점
     var point: Double = 0
     // 차트 최고점
     let maxpoint: Double = 50
-    // 델리게이트 호출
-    let delegate = UIApplication.shared.delegate as? AppDelegate
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,62 +83,28 @@ class MainVC: UIViewController {
     private func networking(type: Int, complition: @escaping () -> Void) {
         
         // 네트워크 url, 헤더, queryparameter 설정
-        let url = "http://10.80.162.86:3000/v1/point"
-        let headers:HTTPHeaders = ["authorization" : "\(Token.shared.token!)"]
+        let uri = "/point"
+        let headers:HTTPHeaders = ["authorization" : "\(Token.shared.token ?? "")"]
         let parameters: Parameters = ["type": type]
         
-        // url을 넣고 get으로 요청
-        let alamo = AF.request(url, method: .get, parameters: parameters, encoding: URLEncoding.queryString, headers: headers)
-        alamo.responseJSON() { response in
-            switch response.result {
-            // when success
-            case .success(let value):
-                let json = JSON(value)
-                // 서버 코드 저장
-                let code = json["code"].intValue
-                // 코드 판별
-                if code == 200 {
-                    self.userData(json: json)
-                    self.scoreData(json: json)
-                    complition()
-                }
-                // 서버 메세지 알림
-                else {
-                    let message = json["message"].stringValue
-                    let alert = UIAlertController(title: nil, message: message, preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                    return
-                }
-            // when failure
-            case .failure(_):
-                let alert = UIAlertController(title: nil, message: "네트워크를 다시 확인해주세요", preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                self.present(alert, animated: true, completion: nil)
-                return
+        NetworkingMock.get(uri: uri, param: parameters, header: headers) { error, data in
+            if error == nil {
+                // decoder
+                let decoder: JSONDecoder = JSONDecoder()
+                self.data = try? decoder.decode(Point.self, from: data!)
+                print(self.data)
+                self.point = 0
                 
+                for value in self.data!.data.score {
+                    self.point += value.score
+                }
+                complition()
+            }
+            else {
+                print(error! as AFError)
+                self.present(self.alert, animated: true, completion: nil)
             }
         }
-    }
-    
-    // 점수 데이터 처리
-    func scoreData(json: JSON) {
-        score = json["data"]["score"].arrayValue
-        // 포인트 초기화
-        point = 0
-        // score 배열이 없을 경우 실행
-        if (score.isEmpty != true) {
-            for a in 0...(score.count - 1) {
-                point += score[a]["score"].doubleValue
-            }
-        }
-    }
-    
-    // 유저 데이터 띄우기
-    func userData(json: JSON) {
-        let user = json["data"]["user"][0]
-        numberLabel.text = user["number"].stringValue
-        nameLabel.text = user["name"].stringValue
     }
     
     // 차트의 각도를 반환하는 함수
@@ -174,14 +141,15 @@ class MainVC: UIViewController {
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return score.count
+        return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let data = score[(score.count - 1) - indexPath.row]
+        let score = data?.data.score
         let cell = (tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! customcell).then {
-            $0.reasontext.text = data["reason"].stringValue + " \(data["score"].intValue)점"
-            $0.datetext.text = String(data["created_at"].stringValue.split(separator: "T")[0])
+            $0.reasontext.text = score![indexPath.row].reason + "\(score![indexPath.row].score)점"
+            print(data?.data.score[indexPath.row].created_at.split(separator: "T"))
+//            $0.datetext.text = String(data?.data.score[indexPath.row].created_at.split(separator: "T"))
             $0.reasontext.textColor = bluecolor
         }
         if self.title == "벌점" {
