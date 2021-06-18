@@ -10,7 +10,6 @@ import UIKit
 import Alamofire
 import KDCircularProgress
 import Then
-import SwiftyJSON
 
 let bluecolor = #colorLiteral(red: 0.2705882353, green: 0.4431372549, blue: 0.9019607843, alpha: 1)
 let redcolor = #colorLiteral(red: 0.9529411765, green: 0.3254901961, blue: 0.3254901961, alpha: 1)
@@ -38,20 +37,22 @@ class MainVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "상점"
-        // 뷰가 생성 될 때 상점을 로드
-        networking(type: 0) {
-            self.pointLabel.text = "\(Int(self.point))점"
-            self.drawChart(self.point)
-            self.tableView.reloadData()
-        }
+        // 처음 원형차트의 퍼센트를 0으로 초기화
+        circleChart.angle = 0
         //테이블 뷰의 선택을 막음
         tableView.allowsSelection = false
         //원형이미지 출력
         circleimage()
-        // 처음 원형차트의 퍼센트를 0으로 초기화
-        circleChart.angle = 0
         // tableview의 모서리 지정
         self.tableView.layer.cornerRadius = 10
+        // 뷰가 생성 될 때 상점을 로드
+        networking(type: 0) {
+            self.pointLabel.text = "\(Int(self.point))점"
+            self.drawChart(self.point)
+            self.numberLabel.text = String((self.data?.data.user[0].number)!)
+            self.nameLabel.text = self.data?.data.user[0].name
+            self.tableView.reloadData()
+        }
         // Do any additional setup after loading the view.
     }
     
@@ -88,11 +89,10 @@ class MainVC: UIViewController {
         let parameters: Parameters = ["type": type]
         
         NetworkingMock.get(uri: uri, param: parameters, header: headers) { error, data in
-            if error == nil {
+            if data != nil {
                 // decoder
                 let decoder: JSONDecoder = JSONDecoder()
                 self.data = try? decoder.decode(Point.self, from: data!)
-                print(self.data)
                 self.point = 0
                 
                 for value in self.data!.data.score {
@@ -141,15 +141,14 @@ class MainVC: UIViewController {
 extension MainVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return data?.data.score.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let score = data?.data.score
+        let score = data!.data.score
         let cell = (tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! customcell).then {
-            $0.reasontext.text = score![indexPath.row].reason + "\(score![indexPath.row].score)점"
-            print(data?.data.score[indexPath.row].created_at.split(separator: "T"))
-//            $0.datetext.text = String(data?.data.score[indexPath.row].created_at.split(separator: "T"))
+            $0.reasontext.text = score[indexPath.row].reason + " \(Int(score[indexPath.row].score))점"
+            $0.datetext.text = String(score[indexPath.row].created_at.dropLast(14))
             $0.reasontext.textColor = bluecolor
         }
         if self.title == "벌점" {

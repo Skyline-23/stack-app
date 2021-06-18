@@ -11,7 +11,6 @@ import Alamofire
 
 protocol NetworkingProtocol {
     static func get(uri: String, param: Parameters?, header: HTTPHeaders?, completion: @escaping (AFError?, Data?) -> Void) -> Void
-    static var SessionManager: Session { get }
 }
 
 struct Networking: NetworkingProtocol {
@@ -53,25 +52,18 @@ struct Networking: NetworkingProtocol {
 }
 
 class NetworkingMock: NetworkingProtocol {
-    static let SessionManager: Session = {
-        let configuration = URLSessionConfiguration.default
-        configuration.timeoutIntervalForRequest = 5
-        return Session(configuration: configuration)
-    }()
     
     static func get(uri: String, param: Parameters?, header: HTTPHeaders?, completion: @escaping (AFError?, Data?) -> Void) {
         let filename = "MockPoint.json"
-        var data: Data
         guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
         else {
             fatalError("Couldn't find \(filename) in main bundle.")
         }
         do {
-            data = try Data(contentsOf: file)
+            let data = try Data(contentsOf: file)
             completion(nil, data)
         } catch let error {
             fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
         }
-        completion(nil, nil)
     }
 }
