@@ -28,6 +28,7 @@
 		628B25FE266F86710051527F /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B25FD266F86710051527F /* Board.swift */; };
 		628B2601266F89940051527F /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B2600266F89940051527F /* Networking.swift */; };
 		62924E7925DA871200496B47 /* NoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62924E7825DA871200496B47 /* NoticeCell.swift */; };
+		62A6FE4E267F508C00CE9270 /* MockPost.json in Resources */ = {isa = PBXBuildFile; fileRef = 62A6FE4D267F508C00CE9270 /* MockPost.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,6 +56,7 @@
 		628B25FD266F86710051527F /* Board.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		628B2600266F89940051527F /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		62924E7825DA871200496B47 /* NoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCell.swift; sourceTree = "<group>"; };
+		62A6FE4D267F508C00CE9270 /* MockPost.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockPost.json; sourceTree = "<group>"; };
 		8E29ADD10A209905EF858F5C /* Pods-stack-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stack-app.release.xcconfig"; path = "Target Support Files/Pods-stack-app/Pods-stack-app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -148,6 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				6289A84926732CB700F8691E /* MockPoint.json */,
+				62A6FE4D267F508C00CE9270 /* MockPost.json */,
 			);
 			path = "mock-data";
 			sourceTree = "<group>";
@@ -234,6 +237,7 @@
 			files = (
 				620E5ECA25CB922300FF5714 /* LaunchScreen.storyboard in Resources */,
 				620E5EC725CB922300FF5714 /* Assets.xcassets in Resources */,
+				62A6FE4E267F508C00CE9270 /* MockPost.json in Resources */,
 				6225D00426763A6400AC6EAA /* MockPoint.json in Resources */,
 				620E5EC225CB922200FF5714 /* Main.storyboard in Resources */,
 			);

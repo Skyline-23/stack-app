@@ -1,0 +1,14 @@
+{
+    "code": 200,
+    "message": "글 조회 성공",
+    "data": {
+        "board": [
+            {
+                "idx": 1,
+                "title": "test1",
+                "content": "test1",
+                "userId": "test1"
+            }
+        ]
+    }
+}

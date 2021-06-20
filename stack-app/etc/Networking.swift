@@ -66,4 +66,5 @@ class NetworkingMock: NetworkingProtocol {
             fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
         }
     }
+    
 }
