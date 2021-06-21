@@ -67,4 +67,18 @@ class NetworkingMock: NetworkingProtocol {
         }
     }
     
+    static func Postget(uri: String, param: Parameters?, header: HTTPHeaders?, completion: @escaping (AFError?, Data?) -> Void) {
+        let filename = "MockPost.json"
+        guard let file = Bundle.main.url(forResource: filename, withExtension: nil)
+        else {
+            fatalError("Couldn't find \(filename) in main bundle.")
+        }
+        do {
+            let data = try Data(contentsOf: file)
+            completion(nil, data)
+        } catch let error {
+            fatalError("Couldn't load \(filename) from main bundle:\n\(error)")
+        }
+    }
+    
 }
