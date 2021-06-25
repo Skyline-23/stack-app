@@ -16,6 +16,8 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     
     @IBOutlet weak var noticetable: UITableView!
     
+    var data: Board?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         noticetable.isHidden = true
@@ -24,7 +26,7 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        let url = "http://10.80.162.86:3000/v1/board"
+        let uri = "/board"
         
         if delegate.board != nil {
             noticetable.isHidden = false
@@ -33,23 +35,11 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
             noticetable.isHidden = true
         }
         
-        let alamo = AF.request(url, method: .get, encoding: JSONEncoding.default)
-        let configuration = URLSessionConfiguration.default
-        // timeout시간 설정
-        configuration.timeoutIntervalForRequest = TimeInterval(1)
-        alamo.responseJSON() { response in
-            switch response.result {
-            case .success(let value):
-                let json = JSON(value)
-                self.delegate.board = json["data"]["board"].array
-                self.noticetable.reloadData()
-                self.noticetable.isHidden = false
-            case .failure(_):
-                let alart = UIAlertController(title: nil, message: "네트워크를 다시 확인해주세요", preferredStyle: .alert)
-                alart.addAction(UIAlertAction(title: "확인", style: .default, handler: nil))
-                self.present(alart, animated: true)
-                return
-            }
+        NetworkingMock.Postget(uri: uri, param: nil, header: nil) { error, data in
+            let decoder: JSONDecoder = JSONDecoder()
+            self.data = try? decoder.decode(Board.self, from: data!)
+            print(self.data)
+            self.noticetable.reloadData()
         }
     }
     
