@@ -8,7 +8,6 @@
 import UIKit
 
 import Alamofire
-import SwiftyJSON
 
 class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     
@@ -20,7 +19,6 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        noticetable.isHidden = true
         self.noticetable.layer.cornerRadius = 10
         // Do any additional setup after loading the view
     }
@@ -28,17 +26,10 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
     override func viewDidAppear(_ animated: Bool) {
         let uri = "/board"
         
-        if delegate.board != nil {
-            noticetable.isHidden = false
-        }
-        else {
-            noticetable.isHidden = true
-        }
         
         NetworkingMock.Postget(uri: uri, param: nil, header: nil) { error, data in
             let decoder: JSONDecoder = JSONDecoder()
             self.data = try? decoder.decode(Board.self, from: data!)
-            print(self.data)
             self.noticetable.reloadData()
         }
     }
@@ -57,15 +48,14 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
 
 extension NoticeVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return delegate.board?.count ?? 0
+        return data?.data.board.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! NoticeCell
-        let data = delegate.board?[indexPath.row]
-        cell.Contentlbl.text = data?["content"].stringValue
-        cell.Titlelbl.text = data?["title"].stringValue
-        cell.Userlbl.text = data?["userId"].stringValue
+        cell.contentLabel.text = data?.data.board[indexPath.row].content
+        cell.titleLabel.text = data?.data.board[indexPath.row].title
+        cell.userLabel.text = data?.data.board[indexPath.row].userId
         cell.selectionStyle = .none
         return cell
     }

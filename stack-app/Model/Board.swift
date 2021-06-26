@@ -10,7 +10,11 @@ import Foundation
 struct Board: Decodable {
     var code: Int
     var message: String
-    var data: [BoardData]
+    var data: BoardArray
+}
+
+struct BoardArray: Decodable {
+    var board: [BoardData]
 }
 
 struct BoardData: Decodable {

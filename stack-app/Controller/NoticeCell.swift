@@ -8,7 +8,7 @@
 import UIKit
 
 class NoticeCell: UITableViewCell {
-    @IBOutlet weak var Titlelbl: UILabel!
-    @IBOutlet weak var Contentlbl: UILabel!
-    @IBOutlet weak var Userlbl: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var userLabel: UILabel!
 }

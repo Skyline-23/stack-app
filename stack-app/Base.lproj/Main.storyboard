@@ -545,9 +545,9 @@
                                         <color key="backgroundColor" name="tablecolor"/>
                                         <color key="tintColor" name="tablecolor"/>
                                         <connections>
-                                            <outlet property="Contentlbl" destination="bEt-mF-uic" id="zyM-d1-lo5"/>
-                                            <outlet property="Titlelbl" destination="ftl-5u-WKb" id="9y8-Wm-pUV"/>
-                                            <outlet property="Userlbl" destination="Y95-qo-yb2" id="mcH-ez-qc4"/>
+                                            <outlet property="contentLabel" destination="bEt-mF-uic" id="zyM-d1-lo5"/>
+                                            <outlet property="titleLabel" destination="ftl-5u-WKb" id="9y8-Wm-pUV"/>
+                                            <outlet property="userLabel" destination="Y95-qo-yb2" id="mcH-ez-qc4"/>
                                             <segue destination="FfX-Uj-y73" kind="show" id="Q3M-RU-6of"/>
                                         </connections>
                                     </tableViewCell>
