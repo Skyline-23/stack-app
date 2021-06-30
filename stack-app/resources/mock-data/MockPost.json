@@ -8,6 +8,18 @@
                 "title": "test1",
                 "content": "test1",
                 "userId": "test1"
+            },
+            {
+                "idx": 2,
+                "title": "test2",
+                "content": "test2",
+                "userId": "test2"
+            },
+            {
+                "idx": 3,
+                "title": "test3",
+                "content": "test3",
+                "userId": "test3"
             }
         ]
     }
