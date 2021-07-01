@@ -47,6 +47,14 @@ class NoticeVC: UIViewController, UIGestureRecognizerDelegate {
 }
 
 extension NoticeVC: UITableViewDelegate, UITableViewDataSource {
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "showDetail" {
+            let vc = segue.destination as? NoticeDetailVC
+            vc?.data = sender as? BoardData
+        }
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.data.board.count ?? 0
     }
@@ -65,6 +73,7 @@ extension NoticeVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        delegate.boardnum = indexPath.row
+        performSegue(withIdentifier: "showDetail", sender: data?.data.board[indexPath.row])
     }
+    
 }

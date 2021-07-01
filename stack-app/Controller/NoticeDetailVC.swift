@@ -8,7 +8,7 @@
 import UIKit
 import SwiftyJSON
 
-class notice2VC: UIViewController, UIGestureRecognizerDelegate {
+class NoticeDetailVC: UIViewController, UIGestureRecognizerDelegate {
 
     @IBOutlet weak var viewlayout: UIView!
     @IBOutlet weak var titleLabel: UILabel!
@@ -16,18 +16,16 @@ class notice2VC: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var contentLabel: UITextView!
     @IBOutlet weak var pointLabel: UILabel!
     
-    let delegate = UIApplication.shared.delegate as! AppDelegate
+    var data: BoardData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        titleLabel.text = data?.title
+        userLabel.text = data?.userId
+        contentLabel.text = data?.content
+        
         viewlayout.layer.cornerRadius = 10
-        
-        let data = delegate.board?[delegate.boardnum!]
-        
-        titleLabel.text = data?["title"].stringValue
-        contentLabel.text = data?["content"].stringValue
-        userLabel.text = data?["userId"].stringValue
         // Do any additional setup after loading the view.
     }
     

@@ -6,14 +6,10 @@
 //
 
 import UIKit
-import SwiftyJSON
 import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
-    var board: [JSON]?
-    var boardnum: Int?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
