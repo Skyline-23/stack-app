@@ -19,18 +19,17 @@ struct LoginData: Decodable {
     var token: String
 }
 
-struct User: Codable {
-    let name: String
-}
-
 enum LoginError: Error {
     case defaultError
+    case networkError
     case error(code: Int)
     
     var msg: String {
         switch self {
         case .defaultError:
             return "ERROR"
+        case .networkError:
+            return "network Error"
         case .error(let code):
             return "\(code) Error"
         }
@@ -63,7 +62,7 @@ struct LoginModel {
                         observer.onNext(.failure(.defaultError))
                     }
                 } else { // 네트워킹 실패
-                    observer.onNext(.failure(.defaultError))
+                    observer.onNext(.failure(.networkError))
                     print(error!)
                 }
             }

@@ -29,6 +29,7 @@
 		628B2601266F89940051527F /* Networking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 628B2600266F89940051527F /* Networking.swift */; };
 		62924E7925DA871200496B47 /* NoticeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62924E7825DA871200496B47 /* NoticeCell.swift */; };
 		62A6FE4E267F508C00CE9270 /* MockPost.json in Resources */ = {isa = PBXBuildFile; fileRef = 62A6FE4D267F508C00CE9270 /* MockPost.json */; };
+		62B1BDBD2693E31700BA3EC1 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 62B1BDBC2693E31700BA3EC1 /* LoginViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +58,7 @@
 		628B2600266F89940051527F /* Networking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networking.swift; sourceTree = "<group>"; };
 		62924E7825DA871200496B47 /* NoticeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCell.swift; sourceTree = "<group>"; };
 		62A6FE4D267F508C00CE9270 /* MockPost.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = MockPost.json; sourceTree = "<group>"; };
+		62B1BDBC2693E31700BA3EC1 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		8E29ADD10A209905EF858F5C /* Pods-stack-app.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-stack-app.release.xcconfig"; path = "Target Support Files/Pods-stack-app/Pods-stack-app.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -187,6 +189,7 @@
 		62BA40512691E4D6009B77F3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				62B1BDBC2693E31700BA3EC1 /* LoginViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -326,6 +329,7 @@
 				6257BDDC26705D8F005D3022 /* Token.swift in Sources */,
 				620699F525D0061600E33131 /* customcell.swift in Sources */,
 				620E5EBF25CB922200FF5714 /* loginVC.swift in Sources */,
+				62B1BDBD2693E31700BA3EC1 /* LoginViewModel.swift in Sources */,
 				628B25FE266F86710051527F /* Board.swift in Sources */,
 				620E5EBB25CB922200FF5714 /* AppDelegate.swift in Sources */,
 				620E5EBD25CB922200FF5714 /* SceneDelegate.swift in Sources */,
